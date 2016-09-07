@@ -68,7 +68,8 @@ class Slack
         curl_setopt($ch, CURLOPT_POST, count($fields));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
 
-
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
         $result = curl_exec($ch);
 
 
