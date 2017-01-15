@@ -1,0 +1,14 @@
+{
+    "name": "nblackwe/php-slack-notify",
+    "description": "Simplest way to send slack messages using incoming webhook ever",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nickolanack",
+            "email": "nickblackwell82@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
