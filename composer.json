@@ -1,5 +1,5 @@
 {
-    "name": "nblackwe/php-slack-notify",
+    "name": "nickolanack/php-slack-notify",
     "description": "Simplest way to send slack messages using incoming webhook ever",
     "type": "library",
     "license": "MIT",
