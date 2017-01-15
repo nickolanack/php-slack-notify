@@ -23,33 +23,43 @@
  *  Slack::postMessage('Hello World');
  *  Slack::postMessage(array('text'=>'Hello World'));
  *  Slack::postMessage(array('attachments'=>array("text"=>'Hello World')));
+ *
+ *
+ *  (new Slack($webhookUrl))->post(...);
  */
 
 
 class Slack
 {
 
-    /**
-     *  
-     */
-    public static function postMessage($message)
-    {
 
 
-    	$params=array();
-    	if(is_string($message)){
-    		$params['text']=$message;
-    	}
 
-    	if(is_array($message)||is_object($message)){
-    		$params=$message;
-    	}
+    protected $webhook;
 
-        if(!file_exists(__DIR__.'/slack.token')){
-            throw new Exception('Please put incoming webhook url in: slack.token');
+
+    public function __construct($webhook){
+        $this->webhook-=$webhook;
+
+
+    }
+
+    public function post($message){
+
+
+        if(empty($this->webhook)){
+            throw new Exception('Requires valid incoming webhook url. Create one using Slack');
         }
 
-        $url = trim(file_get_contents(__DIR__.'/slack.token'));
+        $params=array();
+        if(is_string($message)){
+            $params['text']=$message;
+        }
+
+        if(is_array($message)||is_object($message)){
+            $params=$message;
+        }
+
         $fields = array(
             'payload' => urlencode(json_encode($params)),
 
@@ -64,7 +74,7 @@ class Slack
         $ch = curl_init();
 
 
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $this->webhook);
         curl_setopt($ch, CURLOPT_POST, count($fields));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
 
@@ -74,6 +84,26 @@ class Slack
 
 
         curl_close($ch);
+
+
+
+    }
+
+    /**
+     *  
+     */
+    public static function postMessage($message)
+    {
+
+
+        if(!file_exists(__DIR__.'/slack.token')){
+            throw new Exception('Please put incoming webhook url in: slack.token');
+        }
+
+        $url = trim(file_get_contents(__DIR__.'/slack.token'));
+
+        (new Slack($url))->post($message);
+        
 
     }
 
