@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
          "classmap": [
-            "Slack.php"
+            "slack.php"
         ]
     }
 }
