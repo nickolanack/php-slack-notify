@@ -39,7 +39,7 @@ class Slack
 
 
     public function __construct($webhook){
-        $this->webhook-=$webhook;
+        $this->webhook=$webhook;
 
 
     }
